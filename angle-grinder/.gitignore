@@ -1,0 +1,15 @@
+# Ignore project files
+.idea
+*.iml
+
+# Ignore libraries
+node_modules
+bower_components
+
+# Ignore dist package
+coverage
+dev
+dist
+
+# Ignore logs
+*.log

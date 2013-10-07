@@ -1,0 +1,86 @@
+<div class="subnav">
+  <ul class="nav nav-pills">
+    <li><a class="list" href="#/users"><i class="icon-list"></i> Users List</a></li>
+    <li><a ng-show="user.persisted()" class="list" href="#/users/{{user.id}}"><i class="icon-th"></i> Show user</a></li>
+    <li><a class="create" href="#/users/create"><i class="icon-plus"></i> New user</a></li>
+  </ul>
+</div>
+
+<div class="content">
+  <h2 class="page-header" ng-show="user.newRecord()">Create user</h2>
+  <h2 class="page-header" ng-show="user.persisted()">Edit user</h2>
+
+  <form name="editForm" novalidate class="form-horizontal no-margin"
+        ag-server-validation-errors
+        ng-submit="save(user)">
+
+    <div ag-field-group for="name">
+      <label class="control-label">Name</label>
+      <div class="controls">
+        <input type="text" name="name" placeholder="Enter Name"
+               ng-model="user.name" autofocus
+               required />
+        <ag-validation-errors for="name" required="This field is required" />
+      </div>
+    </div>
+
+    <div ag-field-group for="login">
+      <label class="control-label">Login</label>
+      <div class="controls">
+        <input type="text" name="login" placeholder="Enter Login"
+               ng-model="user.login"
+               required ng-minlength="6" />
+        <ag-validation-errors for="login" required="This field is required" />
+      </div>
+    </div>
+
+    <div ag-field-group for="allowance">
+      <label class="control-label">Allowance</label>
+
+      <div class="controls">
+        <input type="text" name="allowance" placeholder="Enter Allowance"
+               ng-model="user.allowance" />
+      </div>
+    </div>
+
+    <div ag-field-group for="birthday">
+      <label class="control-label">Birthday</label>
+
+      <div class="controls">
+        <input type="text" bs-datepicker
+               name="birthday" ng-model="user.birthday"
+               ng-required="true" />
+      </div>
+    </div>
+
+    <div ag-field-group for="password,passwordConfirmation">
+      <label class="control-label">Password</label>
+
+      <div class="controls">
+        <input type="password" name="password" placeholder="Enter Password"
+               ng-model="user.password" autofocus ng-required="user.newRecord()" ng-minlength="6" />
+        <ag-validation-errors for="password"
+                              required="This field is required"
+                              minlength="Password must be at least 6 characters." />
+      </div>
+
+      <div class="controls">
+        <input type="password" name="passwordConfirmation" placeholder="Enter Password Confirmation"
+               ng-model="user.passwordConfirmation" autofocus
+               ng-required="user.newRecord()" match="user.password" ng-minlength="6" />
+        <ag-validation-errors for="passwordConfirmation"
+                              required="This field is required"
+                              minlength="Password must be at least 6 characters."
+                              mismatch="The password does not match the confirmation" />
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <ag-submit-button></ag-submit-button>
+      <span ng-show="user.persisted()">
+        <ag-delete-button when-confirmed="delete(user)"></ag-delete-button>
+      </span>
+      <a href="#/users" class="btn">Cancel</a>
+    </div>
+  </form>
+</div>
